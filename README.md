@@ -41,7 +41,7 @@ Without CACP, agents return 2,000-token prose explaining what they did. With CAC
 
 ## Status
 
-Spec in development. Used in production by [Switchyard](https://github.com/zenprocess) dispatcher.
+Spec in development. Used in production for multi-agent AI coding dispatch.
 
 See benchmark compliance rates on [ServingCard](https://servingcard.dev).
 
