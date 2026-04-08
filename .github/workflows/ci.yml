@@ -19,6 +19,7 @@ jobs:
             --exclude-loopback
             --max-redirects 5
             --accept '200..=204,206,301..=308,403,429'
+            --exclude 'github.com/zenprocess/switchyard'
             './**/*.md'
           fail: true
 
