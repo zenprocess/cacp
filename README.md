@@ -53,14 +53,16 @@ CACP is part of the [standra.ai](https://standra.ai) open standards stack:
 - **[Pawbench](https://github.com/zenprocess/pawbench)** — reference benchmark that scores LLMs against CACP-formatted prompts and responses, including the orchestration × complexity matrix.
 - **[ServingCard](https://servingcard.dev)** — model serving config standard.
 
-## Recent additive fields (spec 009)
+## Additive fields for orchestration & complexity reporting
 
-CACP responses can carry these spec 009 fields (see [switchyard spec 009](https://github.com/zenprocess/switchyard/blob/main/specs/009-pawbench-orchestration-axis/spec.md) for the operational mapping):
+CACP responses can carry these additional fields for runners that report multi-dimensional dispatch results. Vocabularies are normative in [Axiom §17](https://github.com/zenprocess/axiom/blob/main/spec.md):
 
-- `complexity_tier` — `display` / `crud` / `transactional` / `cross_cutting`
-- `verification_runs[]` — N-run AC re-verification with per-run verdict + prompt hash
-- `artifact_quality` — static-analysis score over changed files
-- `fixture_gap` (status) — AC un-evaluable due to missing setup, NOT counted against the agent
+- `complexity_tier` — `display` / `crud` / `transactional` / `cross_cutting`. Stratifies aggregate scores so display-tier passes don't mask transactional-tier cliffs.
+- `verification_runs[]` — N-run AC re-verification, one record per run with `verdict`, `prompt_hash`, `elapsed_ms`. Surfaces verifier flake.
+- `artifact_quality` — static-analysis score over the *changed files only*; orthogonal to AC pass.
+- `fixture_gap` (terminal status) — AC un-evaluable due to missing setup (seed data, env, services). **Not counted against the agent** — counts against the scenario author.
+
+[Pawbench](https://github.com/zenprocess/pawbench) is the reference implementation of these fields end-to-end.
 
 ## License
 
