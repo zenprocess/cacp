@@ -39,6 +39,48 @@ Without CACP, agents return 2,000-token prose explaining what they did. With CAC
 | Ambiguous success/failure | Explicit STATUS field |
 | No structured file tracking | FILES_CREATED/MODIFIED lists |
 
+## Parser tolerance rules
+
+The canonical wire format is `FIELD:value` with no whitespace between the colon and the value, for token compactness (the "C" in CACP). This is what emitters **SHOULD** produce.
+
+Parsers **MUST** tolerate whitespace variants — single space, multiple spaces, and tab — between the colon and the value. All four of these MUST parse identically:
+
+```
+STATUS:ok
+STATUS: ok
+STATUS:  ok
+STATUS:	ok
+```
+
+Parsers **MUST** treat field names as case-insensitive: `STATUS:`, `status:`, `Status:`, and `STATus:` all denote the same field.
+
+Parsers **MUST** accept the following `STATUS` values:
+
+`ok`, `fail`, `partial`, `needs_decision`, `no_changes`, `decomposed`, `rejected`, `retry`, `fixture_gap`
+
+Parsers **MUST** accept the following `TESTS` and `BUILD` values:
+
+`pass`, `fail`, `skip` — with optional `:N` count for `TESTS` (e.g. `TESTS:pass:42`).
+
+### Why these rules exist
+
+The standard's whole value proposition is **interop**: multiple agents and dispatchers must agree on the wire format. Without tolerance rules, every implementer makes their own choice and the standard fragments. A real production cascade traced back to a single missing `\s*` in a parser regex — the system prompt taught the agent to emit `STATUS: ok` (with a space) while the parser enforced `STATUS:ok` (without). Five agent-side fixes were shipped before the root cause was identified as a parser bug.
+
+### Conformance test vector
+
+Any conformant parser MUST pass this vector:
+
+| Input line | Parsed `(field, value)` |
+|---|---|
+| `STATUS:ok` | `("STATUS", "ok")` |
+| `STATUS: ok` | `("STATUS", "ok")` |
+| `STATUS:  ok` | `("STATUS", "ok")` |
+| `STATUS:\tok` | `("STATUS", "ok")` |
+| `status: ok` | `("STATUS", "ok")` |
+| `Status:OK` | `("STATUS", "ok")` |
+
+Implementations SHOULD also run a **prompt round-trip test**: feed the literal system-prompt example block through the parser and assert it accepts everything the prompt teaches the agent to emit.
+
 ## Status
 
 Spec in development. Used in production for multi-agent AI coding dispatch.
