@@ -1,14 +1,18 @@
-# cacp — Reference Python parser for CACP
+# cacp-protocol — Reference Python parser for CACP
 
 Canonical Python reference implementation of [CACP (Compressed Agent
 Communication Protocol)](https://github.com/zenprocess/cacp). The spec
 lives in the parent [`README.md`](../README.md); this package implements
 the parser against it.
 
+> **Naming**: distributed on PyPI as `cacp-protocol` (the unprefixed
+> `cacp` slot was already taken by an unrelated project — Classification
+> Algorithms Comparison Pipeline). Imports as `cacp_protocol`.
+
 ## Install
 
 ```
-pip install cacp
+pip install cacp-protocol
 ```
 
 Zero runtime dependencies — pure stdlib.
@@ -16,7 +20,7 @@ Zero runtime dependencies — pure stdlib.
 ## Usage
 
 ```python
-from cacp import parse
+from cacp_protocol import parse
 
 text = open("agent_response.txt").read()
 response = parse(text)

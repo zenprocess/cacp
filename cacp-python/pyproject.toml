@@ -1,5 +1,5 @@
 [project]
-name = "cacp"
+name = "cacp-protocol"
 version = "0.1.0"
 description = "Reference Python parser for CACP (Compressed Agent Communication Protocol)"
 readme = "README.md"
