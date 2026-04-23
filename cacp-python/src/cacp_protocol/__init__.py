@@ -3,8 +3,8 @@
 See the canonical spec at https://github.com/zenprocess/cacp.
 """
 
-from cacp.parser import parse
-from cacp.models import (
+from cacp_protocol.parser import parse
+from cacp_protocol.models import (
     CACPResponse,
     CANONICAL_STATUS_VALUES,
     CANONICAL_TESTS_BUILD_VALUES,

@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import re
 
-from cacp.models import (
+from cacp_protocol.models import (
     CACPResponse,
     CANONICAL_STATUS_VALUES,
     CANONICAL_TESTS_BUILD_VALUES,

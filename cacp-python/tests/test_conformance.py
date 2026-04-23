@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pytest
 
-from cacp import (
+from cacp_protocol import (
     CANONICAL_STATUS_VALUES,
     CANONICAL_TESTS_BUILD_VALUES,
     parse,

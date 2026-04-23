@@ -7,7 +7,7 @@ the spec teaches an agent to emit.
 
 from __future__ import annotations
 
-from cacp import parse
+from cacp_protocol import parse
 
 
 # Verbatim copy of the response example in the parent README.md (§"Response
