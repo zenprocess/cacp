@@ -44,7 +44,7 @@ def test_all_canonical_status_values(value: str) -> None:
 
 
 def test_full_envelope() -> None:
-    """The shape switchyard's claude -p JSON envelope sends."""
+    """The shape a typical CLI orchestrator's claude -p JSON envelope sends."""
     r = parse_structured(
         {
             "status": "ok",
